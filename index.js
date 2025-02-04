@@ -1,15 +1,18 @@
-const express = require('express');
-const { resolve } = require('path');
+const express = require("express");
+const connectDB = require("./db");
+const User = require("./schema");
 
 const app = express();
-const port = 3010;
+app.use(express.json());
 
-app.use(express.static('static'));
+// Connect to MongoDB
+connectDB();
 
-app.get('/', (req, res) => {
-  res.sendFile(resolve(__dirname, 'pages/index.html'));
+// Test Route
+app.get("/", (req, res) => {
+  res.send("User Management System API");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+// Start the Server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port https://localhost:${PORT}`));
